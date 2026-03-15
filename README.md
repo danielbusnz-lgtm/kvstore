@@ -12,10 +12,19 @@ A lightweight key-value store built in Rust. Accepts commands over a TCP connect
 
 ## Getting started
 
+**With Rust**
+
 ```bash
 git clone https://github.com/danielbusnz-lgtm/kvstore
 cd kvstore
 cargo run
+```
+
+**With Docker**
+
+```bash
+docker build -t kvstore .
+docker run -p 6379:6379 kvstore
 ```
 
 The server starts on `127.0.0.1:6379`.
