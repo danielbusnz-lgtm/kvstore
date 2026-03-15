@@ -70,6 +70,11 @@ fn handle_command(input: &str, store: &Store) -> String {
             save_to_disk(&store);
             "OK\n".to_string()
         }
+        ["KEYS"] => {
+            let store = store.lock().unwrap();
+            let keys: Vec<&str> = store.keys().map(|k| k.as_str()).collect();
+            format!("{}\n", keys.join(","))
+        }
         _ => "ERR unknown command\n".to_string(),
     }
 }

@@ -1,6 +1,6 @@
 # kvstore
 
-A lightweight key-value store built in Rust. Accepts commands over a TCP connection, stores data in memory, and persists to disk as JSON.
+A lightweight key-value store built in Rust. Accepts commands over a TCP connection, stores data in memory, and persists to disk as JSON. Includes a terminal UI for browsing and managing keys interactively.
 
 ## Commands
 
@@ -9,6 +9,7 @@ A lightweight key-value store built in Rust. Accepts commands over a TCP connect
 | `SET key value` | Store a value | `SET name daniel` |
 | `GET key` | Retrieve a value | `GET name` |
 | `DEL key` | Delete a key | `DEL name` |
+| `KEYS` | List all keys | `KEYS` |
 
 ## Getting started
 
@@ -17,7 +18,7 @@ A lightweight key-value store built in Rust. Accepts commands over a TCP connect
 ```bash
 git clone https://github.com/danielbusnz-lgtm/kvstore
 cd kvstore
-cargo run
+cargo run --bin kvstore
 ```
 
 **With Docker**
@@ -29,9 +30,22 @@ docker run -p 6379:6379 kvstore
 
 The server starts on `127.0.0.1:6379`.
 
-## Connecting
+## Terminal UI
 
-Use any TCP client to connect and send commands:
+Run the TUI client in a second terminal while the server is running:
+
+```bash
+cargo run --bin tui
+```
+
+- Arrow keys to navigate keys
+- Selected key's value is shown in the right panel
+- Type commands in the input box and hit Enter
+- Press Esc to exit
+
+## Connecting manually
+
+Use any TCP client to send commands directly:
 
 ```powershell
 $client = New-Object System.Net.Sockets.TcpClient("127.0.0.1", 6379)
@@ -56,3 +70,5 @@ Data is saved to `store.json` on every write and loaded back on startup. Stoppin
 - Rust
 - Tokio — async runtime
 - Serde — JSON serialization
+- Ratatui — terminal UI
+- Crossterm — terminal input and rendering
